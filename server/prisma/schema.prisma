@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Booking {
+  id          Int      @id @default(autoincrement())
+  name        String
+  phone       String
+  pickup      String
+  destination String
+  tripType    String
+  date        String
+  time        String
+  vehicle     String?
+  passengers  Int?
+  message     String?
+  status      String   @default("Pending")
+  createdAt   DateTime @default(now())
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  name      String
+  rating    Int
+  review    String
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Place {
+  id        Int      @id @default(autoincrement())
+  title     String
+  image     String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Gallery {
+  id        Int      @id @default(autoincrement())
+  title     String?
+  image     String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model SiteSetting {
+  id        Int      @id @default(autoincrement())
+  siteName  String   @default("Bhagwati Tour & Travels")
+  tagline   String   @default("Jaipur Local • Outstation • Airport Pickup")
+  phone     String   @default("+91 9799727454")
+  whatsapp  String   @default("919799727454")
+  email     String   @default("")
+  address   String   @default("Jaipur • Rajasthan")
+  about     String   @default("")
+  facebook  String   @default("")
+  instagram String   @default("")
+  updatedAt DateTime @updatedAt
+}
