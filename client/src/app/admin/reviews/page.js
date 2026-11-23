@@ -9,7 +9,7 @@ export default function AdminReviewsPage() {
 
   const handleApprove = async (id, approved) => {
     try {
-      await fetch(`http://localhost:5000/api/reviews/${id}/approve`, {
+      await fetch(`https://bhagwati-tour-travels.onrender.com//api/reviews/${id}/approve`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ approved }),

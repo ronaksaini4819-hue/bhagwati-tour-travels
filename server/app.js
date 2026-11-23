@@ -4,7 +4,20 @@ const path = require("path");
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:3000', 
+  'https://bhagwati-tour-travels.vercel.app' // Apna actual Vercel URL yahan daalo
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 app.use(express.json());
 
 // Serve uploads from SERVER ROOT (same logic as middleware)
@@ -45,5 +58,7 @@ app.get("/api/debug/uploads", (req, res) => {
     res.json({ uploadDir, error: err.message });
   }
 });
+
+
 
 module.exports = app;
